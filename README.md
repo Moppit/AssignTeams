@@ -1,2 +1,2 @@
-# AssignTeams
-CSCI 5654 Final Project: CS Capstone team assignments
+# CapstoneTeamsProblem
+CSCI 5654 Final Project: CS Capstone Team Assignments
