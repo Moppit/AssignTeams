@@ -23,6 +23,7 @@ Students                            Projects
 
 EDGES = []
 STUDENTS = []
+PROJECTS = ['Zayo', 'NASA', 'L3Harris', 'CU English', 'iSAT', 'UCAR']
 
 class Student:
     def __init__(self, id):
@@ -37,32 +38,32 @@ class Edge:
 # Student 1
 s1 = Student(1)
 STUDENTS.append(s1)
-EDGES.append(Edge(s1, 5, 1))
-EDGES.append(Edge(s1, 4, 3))
-EDGES.append(Edge(s1, 3, 4))
-EDGES.append(Edge(s1, 2, 5))
-EDGES.append(Edge(s1, 1, 6))
+EDGES.append(Edge(s1, 5, 0))
+EDGES.append(Edge(s1, 4, 2))
+EDGES.append(Edge(s1, 3, 3))
+EDGES.append(Edge(s1, 2, 4))
+EDGES.append(Edge(s1, 1, 5))
 
 # Student 2
 s2 = Student(2)
 STUDENTS.append(s2)
-EDGES.append(Edge(s2, 5, 4))
-EDGES.append(Edge(s2, 4, 2))
-EDGES.append(Edge(s2, 3, 5))
-EDGES.append(Edge(s2, 2, 1))
+EDGES.append(Edge(s2, 5, 3))
+EDGES.append(Edge(s2, 4, 1))
+EDGES.append(Edge(s2, 3, 4))
+EDGES.append(Edge(s2, 2, 0))
 
 # Student 3
 s3 = Student(3)
 STUDENTS.append(s3)
-EDGES.append(Edge(s3, 5, 2))
-EDGES.append(Edge(s3, 4, 6))
-EDGES.append(Edge(s3, 3, 1))
-EDGES.append(Edge(s3, 2, 5))
+EDGES.append(Edge(s3, 5, 1))
+EDGES.append(Edge(s3, 4, 5))
+EDGES.append(Edge(s3, 3, 0))
+EDGES.append(Edge(s3, 2, 4))
 
 # Student 4
 s4 = Student(4)
 STUDENTS.append(s4)
-EDGES.append(Edge(s4, 5, 3))
-EDGES.append(Edge(s4, 4, 4))
-EDGES.append(Edge(s4, 3, 6))
-EDGES.append(Edge(s4, 2, 5))
+EDGES.append(Edge(s4, 5, 2))
+EDGES.append(Edge(s4, 4, 3))
+EDGES.append(Edge(s4, 3, 5))
+EDGES.append(Edge(s4, 2, 4))

@@ -1,44 +1,39 @@
 \* Capstone_Teams_Problem *\
 Maximize
-Max_Student_Happiness: Preference_Vars_e116 + 2 Preference_Vars_e125
- + 3 Preference_Vars_e134 + 4 Preference_Vars_e143 + 5 Preference_Vars_e151
- + 2 Preference_Vars_e221 + 3 Preference_Vars_e235 + 4 Preference_Vars_e242
- + 5 Preference_Vars_e254 + 2 Preference_Vars_e325 + 3 Preference_Vars_e331
- + 4 Preference_Vars_e346 + 5 Preference_Vars_e352 + 2 Preference_Vars_e425
- + 3 Preference_Vars_e436 + 4 Preference_Vars_e444 + 5 Preference_Vars_e453
+Max_Student_Happiness: _e115 + 2 _e124 + 3 _e133 + 4 _e142 + 5 _e150 + 2 _e220
+ + 3 _e234 + 4 _e241 + 5 _e253 + 2 _e324 + 3 _e330 + 4 _e345 + 5 _e351
+ + 2 _e424 + 3 _e435 + 4 _e443 + 5 _e452
 Subject To
-_C1: Preference_Vars_e116 + Preference_Vars_e125 + Preference_Vars_e134
- + Preference_Vars_e143 + Preference_Vars_e151 <= 1
-_C2: Preference_Vars_e116 + Preference_Vars_e125 + Preference_Vars_e134
- + Preference_Vars_e143 + Preference_Vars_e151 >= 0
-_C3: Preference_Vars_e221 + Preference_Vars_e235 + Preference_Vars_e242
- + Preference_Vars_e254 <= 1
-_C4: Preference_Vars_e221 + Preference_Vars_e235 + Preference_Vars_e242
- + Preference_Vars_e254 >= 0
-_C5: Preference_Vars_e325 + Preference_Vars_e331 + Preference_Vars_e346
- + Preference_Vars_e352 <= 1
-_C6: Preference_Vars_e325 + Preference_Vars_e331 + Preference_Vars_e346
- + Preference_Vars_e352 >= 0
-_C7: Preference_Vars_e425 + Preference_Vars_e436 + Preference_Vars_e444
- + Preference_Vars_e453 <= 1
-_C8: Preference_Vars_e425 + Preference_Vars_e436 + Preference_Vars_e444
- + Preference_Vars_e453 >= 0
+_C1: _e115 + _e124 + _e133 + _e142 + _e150 <= 1
+_C10: _e241 + _e351 <= 8
+_C11: _e142 + _e452 <= 8
+_C12: _e133 + _e253 + _e443 <= 8
+_C13: _e124 + _e234 + _e324 + _e424 <= 8
+_C14: _e115 + _e345 + _e435 <= 8
+_C2: _e115 + _e124 + _e133 + _e142 + _e150 >= 0
+_C3: _e220 + _e234 + _e241 + _e253 <= 1
+_C4: _e220 + _e234 + _e241 + _e253 >= 0
+_C5: _e324 + _e330 + _e345 + _e351 <= 1
+_C6: _e324 + _e330 + _e345 + _e351 >= 0
+_C7: _e424 + _e435 + _e443 + _e452 <= 1
+_C8: _e424 + _e435 + _e443 + _e452 >= 0
+_C9: _e150 + _e220 + _e330 <= 8
 Binaries
-Preference_Vars_e116
-Preference_Vars_e125
-Preference_Vars_e134
-Preference_Vars_e143
-Preference_Vars_e151
-Preference_Vars_e221
-Preference_Vars_e235
-Preference_Vars_e242
-Preference_Vars_e254
-Preference_Vars_e325
-Preference_Vars_e331
-Preference_Vars_e346
-Preference_Vars_e352
-Preference_Vars_e425
-Preference_Vars_e436
-Preference_Vars_e444
-Preference_Vars_e453
+_e115
+_e124
+_e133
+_e142
+_e150
+_e220
+_e234
+_e241
+_e253
+_e324
+_e330
+_e345
+_e351
+_e424
+_e435
+_e443
+_e452
 End
