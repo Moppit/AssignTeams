@@ -66,7 +66,7 @@ while count < len(df.index):
     count += 1
 
 
-#--------------------------------------- build EDGE array #######
+#--------------------------------------- build EDGE array
 count = 0
 EDGE = []
 while count < len(df.index):
@@ -136,3 +136,15 @@ while student_id_row < len(df.index):
         dislike_matrix[student_id_row][find_student_id(current_row.dislike5)] = 1
 
     student_id_row += 1
+
+
+print ("--------project list:")
+print (PROJECT)
+print ("--------name of first student in STUDENT list:")
+print (STUDENT[0].name)
+print ("--------name of student in first EDGE:")
+print (EDGE[0].student.name)
+print ("--------weight of student in first EDGE:")
+print (EDGE[0].weight)
+print ("--------project of student in first EDGE:")
+print (EDGE[0].project)
