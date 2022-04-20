@@ -10,3 +10,15 @@ class Student:
         self.conflict_resolution_approach = conflict_resolution_approach
         self.interaction = interaction
 
+    def toDict(self):
+        dictionary_version = {
+            "ID": self.ID,
+            "name": self.name,
+            "group_dynamic": self.group_dynamic,
+            "leadership": self.leadership,
+            "english_writing_skill": self.english_writing_skill,
+            "programming_attitude": self.programming_attitude,
+            "conflict_resolution_approach": self.conflict_resolution_approach,
+            "interaction": self.interaction
+        }
+        return dictionary_version

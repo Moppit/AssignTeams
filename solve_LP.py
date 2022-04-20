@@ -1,6 +1,7 @@
 from pulp import *
 import parameters
 import helpers
+<<<<<<< HEAD
 import dummy_data, read_data   # TODO: import the real data. For now, have dummy data.
 
 # TODO: uncomment these and fill them in after you get it to work with dummy data
@@ -11,6 +12,17 @@ Sponsor_List = [["Student_2", "Childrens Hospital"], ["Student_30", "NASA"]]
 
 # Creates decision variables - note that the edges from people to projects have to be exactly 1
 preferences = [helpers.getEdgeName(edge) for edge in read_data.EDGES]
+=======
+import read_data
+
+df = read_data.create_DF()
+EDGES = read_data.create_Edge_array(df)
+STUDENTS = read_data.create_Student_array(df)
+PROJECTS = read_data.create_Project_array(df)
+
+# Creates decision variables - note that the edges from people to projects have to be exactly 1
+preferences = [helpers.getEdgeName(edge) for edge in EDGES]
+>>>>>>> main
 preference_vars = LpVariable.dicts("", preferences, 0, 1, cat="Integer")
 
 # Create the LP problem and add the decision variables
@@ -24,16 +36,15 @@ prob += lpSum([helpers.getEdgeWeight(i)*preference_vars[i] for i in preferences]
 
 ### Ensure students get only 1 project
 if parameters.CONSIDER_PROJECT_PREFERENCES:
-    for s in dummy_data.STUDENTS:
-        # prob += lpSum([CONCENTRATE_DIC[elem][i]/Max_Per_Elem[elem] * preference_vars[i] for i in preferences]) <= Max_Per_Elem[elem]/100, elem+"Percent"
-        relevant_edges = helpers.getEdgesWithStudentID(dummy_data.EDGES, s.ID)
+    for s in STUDENTS:
+        relevant_edges = helpers.getEdgesWithStudentID(EDGES, s.ID)
         num_proj_assigned_per_student = lpSum([preference_vars[edge] for edge in relevant_edges])
         prob += num_proj_assigned_per_student <= parameters.PROJECTS_PER_STUDENT
         prob += num_proj_assigned_per_student >= 0
 
 ### Ensure projects are within min/max team size
-for p in range(len(dummy_data.PROJECTS)):
-    relevant_edges = helpers.getEdgesWithProject(dummy_data.EDGES, p)
+for p in range(len(PROJECTS)):
+    relevant_edges = helpers.getEdgesWithProject(EDGES, p)
     team_size = lpSum( [preference_vars[edge] for edge in relevant_edges] )
 
     if parameters.CONSIDER_MAX_TEAM_SIZE:
@@ -128,14 +139,14 @@ print()
 final_edges = []
 for v in prob.variables():
     if v.varValue == 1:
-        print(v.name, "=", v.varValue)
-        varName = helpers.stripPunctuation(v.name)
-        edge = helpers.getEdgeFromName(dummy_data.EDGES, varName)
+        # print(v.name, "=", v.varValue)
+        varName = v.name[1:]
+        edge = helpers.getEdgeFromName(EDGES, varName)
         final_edges.append(edge)
 
 # Print Pretty
 if LpStatus[prob.status] == 'Optimal':
     # Display all edges
-    for i in range(len(dummy_data.PROJECTS)):
-        print(dummy_data.PROJECTS[i], ':', [edge for edge in helpers.getEdgesWithProject(final_edges, i)])
+    for i in range(len(PROJECTS)):
+        print(PROJECTS[i], ':', [edge for edge in helpers.getEdgesWithProject(final_edges, i)])
     
