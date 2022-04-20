@@ -3,36 +3,40 @@ HELPER FUNCTIONS
 """
 import string
 
-def stripPunctuation(s):
-    return ''.join([i for i in s if i not in string.punctuation])
-
 def getEdgeName(edge):
     if isinstance(edge, str):
         return edge
     else:
-        return 'e' + str(edge.student.ID) + str(edge.weight) + str(edge.project)
+        return str(edge.student.ID) + '_' + str(edge.weight) + '_' + str(edge.project)
 
 # Gets edge weight from either the edge name or the edge variables
 def getEdgeWeight(edge):
     if isinstance(edge, str):
-        return int(edge[2])
+        arr = edge.split('_')
+        return int(arr[1])
     else:
         return edge.weight
 
 def getEdgeProject(edge):
     if isinstance(edge, str):
-        return int(edge[3])
+        arr = edge.split('_')
+        return int(arr[2])
     else:
         return edge.project
 
 def getEdgeFromName(edgeList, edgeName):
+    arr = edgeName.split('_')
+    id = int(arr[0])
+    w = int(arr[1])
+    proj = int(arr[2])
     for e in edgeList:
-        if e.student.ID == int(edgeName[1]) and e.project == int(edgeName[3]) and e.weight == int(edgeName[2]):
+        if e.student.ID == id and e.project == proj and e.weight == w:
             return e
     # If edge doesn't exist, return None
     return None
 
 # Filter edges
+# @return: array of strings
 def getEdgesWithStudentID(lstToFilter, student_id):
     if len(lstToFilter) == 0:
         return []
