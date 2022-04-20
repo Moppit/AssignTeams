@@ -17,6 +17,14 @@ def getEdgeWeight(edge):
     else:
         return edge.weight
 
+def getEdgeStudentID(edge):
+    if isinstance(edge, str):
+        arr = edge.split('_')
+        return int(arr[0])
+    else:
+        return edge.student.ID
+
+
 def getEdgeProject(edge):
     if isinstance(edge, str):
         arr = edge.split('_')
@@ -42,7 +50,7 @@ def getEdgesWithStudentID(lstToFilter, student_id):
         return []
     # If you get list of string objects
     elif isinstance(lstToFilter[0], str):
-        return [val for val in lstToFilter if val[1] == student_id]
+        return [val for val in lstToFilter if getEdgeStudentID(val) == student_id]
     # If you get list of Edge objects
     else:
         return [getEdgeName(val) for val in lstToFilter if val.student.ID == student_id]
@@ -52,7 +60,7 @@ def getEdgesWithProject(lstToFilter, project):
         return []
     # If you get list of string objects
     elif isinstance(lstToFilter[0], str):
-        return [val for val in lstToFilter if val[3] == project]
+        return [val for val in lstToFilter if getEdgeProject(val) == project]
     # If you get list of Edge objects
     else:
         return [getEdgeName(val) for val in lstToFilter if val.project == project]

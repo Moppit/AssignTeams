@@ -1,18 +1,6 @@
 from pulp import *
 import parameters
 import helpers
-<<<<<<< HEAD
-import dummy_data, read_data   # TODO: import the real data. For now, have dummy data.
-
-# TODO: uncomment these and fill them in after you get it to work with dummy data
-# EDGES = []
-# STUDENTS = []
-# PROJECTS = []
-Sponsor_List = [["Student_2", "Childrens Hospital"], ["Student_30", "NASA"]]
-
-# Creates decision variables - note that the edges from people to projects have to be exactly 1
-preferences = [helpers.getEdgeName(edge) for edge in read_data.EDGES]
-=======
 import read_data
 
 df = read_data.create_DF()
@@ -22,7 +10,6 @@ PROJECTS = read_data.create_Project_array(df)
 
 # Creates decision variables - note that the edges from people to projects have to be exactly 1
 preferences = [helpers.getEdgeName(edge) for edge in EDGES]
->>>>>>> main
 preference_vars = LpVariable.dicts("", preferences, 0, 1, cat="Integer")
 
 # Create the LP problem and add the decision variables
@@ -54,47 +41,36 @@ for p in range(len(PROJECTS)):
         prob += team_size >= parameters.MIN_TEAM_SIZE
 
 ### Ensure students end up with desired teammates
-# if parameters.CONSIDER_TEAMMATE_LIKES:
-#     for j in range(read_data.friend_matrix[0]):
-#         for i in range(read_data.friend_matrix):
-#             if read_data.friend_matrix[i][j] == 1:
-#                 for p in read_data.PROJECT:
-#                     #the addition of edge_student_i_project_p + edge_student_j_project_p needs to be two
-#                     # if helpers.getEdgeProject(read_data.EDGE[i]) == helpers.getEdgeProject(read_data.EDGE[j]): # do we need this kind of if statement?
-#                     if helpers.getEdgeProject(read_data.EDGE[i]) == p:#?????hold on we don't need this? are we going to assign two people to a project if they like each other
-#                         student_i_choosed_project_p = 1
-#                     if helpers.getEdgeProject(read_data.EDGE[j]) == p:
-#                         student_j_choosed_project_p = 1
-#                     prob += student_i_choosed_project_p + student_j_choosed_project_p == 2
-                
-# if parameters.CONSIDER_TEAMMATE_LIKES:
-#     for j in range(read_data.friend_matrix[0]):
-#         for i in range(read_data.friend_matrix):
-#             if read_data.friend_matrix[i][j] == 1:
-#                 for p in read_data.PROJECT:
-
-            
-
+if parameters.CONSIDER_TEAMMATE_LIKES:
+    for j in range(len(read_data.friend_matrix[0])):
+        for i in range(len(read_data.friend_matrix)):
+            if read_data.friend_matrix[i][j] == 1:
+                i_project = helpers.getEdgesWithStudentID(EDGES, i)
+                j_project = helpers.getEdgesWithStudentID(EDGES, j)
+                for p in PROJECTS:
+                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, p)
+                    if len(fullyfiltered) == 2:
+                        prob += preference_vars[fullyfiltered[0]] + preference_vars[fullyfiltered[1]] == 2
 
 
 ### Ensure students don't get paired with people they dislike
-# if parameters.CONSIDER_TEAMMATE_DISLIKES:
-#     for j in range(read_data.friend_matrix[0]):
-#         for i in range(read_data.friend_matrix):
-#             if read_data.friend_matrix[i][j] == 1:
-#                 for p in read_data.PROJECT:
-#                     #the addition of edge_student_i_project_p + edge_student_j_project_p needs to be two
-#                     # if helpers.getEdgeProject(read_data.EDGE[i]) == helpers.getEdgeProject(read_data.EDGE[j]): # do we need this kind of if statement?
-#                     if helpers.getEdgeProject(read_data.EDGE[i]) == p:#?????hold on we don't need this? are we going to assign two people to a project if they like each other
-#                         student_i_choosed_project_p = 1
-#                     if helpers.getEdgeProject(read_data.EDGE[j]) == p:
-#                         student_j_choosed_project_p = 1
-#                     prob += student_i_choosed_project_p + student_j_choosed_project_p == 2
-                
-            
-            
-
-
+if parameters.CONSIDER_TEAMMATE_DISLIKES:
+    for j in range(len(read_data.dislike_matrix[0])):
+        for i in range(len(read_data.dislike_matrix)):
+            if read_data.dislike_matrix[i][j] == 1:
+                # print ("printing i and j")
+                print (i,j)
+                i_project = helpers.getEdgesWithStudentID(EDGES, i)
+                j_project = helpers.getEdgesWithStudentID(EDGES, j)
+                # print ("i_project: ", i_project)
+                # print ("j_project: ", j_project)
+                # print ("combine: ", i_project + j_project)
+                for p in PROJECTS:
+                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, p)
+                    print ("result of fullyfiltered: ", fullyfiltered)
+                    if len(fullyfiltered) == 2:
+                        print ("i, j gets here", i,j, p)
+                        prob += preference_vars[fullyfiltered[0]] + preference_vars[fullyfiltered[1]] <= 1
 
 
 ### Meet sponsor requests if the student also wants to be paired with them
