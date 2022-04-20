@@ -1,26 +1,7 @@
 from unittest import skip
 import pandas as pd
 import numpy as np
-# import Student_class, Edge_class
-
-class Student:
-    
-    def __init__(self, ID, name, group_dynamic, leadership, english_writing_skill, programming_attitude, conflict_resolution_approach, interaction):
-        self.ID = ID
-        self.name = name
-        self.group_dynamic = group_dynamic
-        self.leadership = leadership
-        self.english_writing_skill = english_writing_skill
-        self.programming_attitude = programming_attitude
-        self.conflict_resolution_approach = conflict_resolution_approach
-        self.interaction = interaction
-
-class Edge:
-
-    def __init__(self, student, weight, project):
-        self.student = student
-        self.weight = weight
-        self.project = project
+import Student_class, Edge_class
 
 
 def create_Project_array(PROJECT, df):
@@ -61,7 +42,7 @@ STUDENT = []
 
 while count < len(df.index):
     current_row = df.iloc[count]
-    student = Student(count, current_row.name, current_row.group_dynamic, current_row.leadership, current_row.english_writing_skill, current_row.programming_attitude, current_row.conflict_resolution_approach, current_row.interaction)
+    student = Student_class.Student(count, current_row.name, current_row.group_dynamic, current_row.leadership, current_row.english_writing_skill, current_row.programming_attitude, current_row.conflict_resolution_approach, current_row.interaction)
     STUDENT.append(student)
     count += 1
 
@@ -71,19 +52,19 @@ count = 0
 EDGE = []
 while count < len(df.index):
     current_row = df.iloc[count]
-    edge = Edge(STUDENT[count], 5, find_the_id_of_project(current_row.project1))
+    edge = Edge_class.Edge(STUDENT[count], 5, find_the_id_of_project(current_row.project1))
     EDGE.append(edge)
 
-    edge = Edge(STUDENT[count], 4, find_the_id_of_project(current_row.project2))
+    edge = Edge_class.Edge(STUDENT[count], 4, find_the_id_of_project(current_row.project2))
     EDGE.append(edge)
 
-    edge = Edge(STUDENT[count], 3, find_the_id_of_project(current_row.project3))
+    edge = Edge_class.Edge(STUDENT[count], 3, find_the_id_of_project(current_row.project3))
     EDGE.append(edge)
 
-    edge = Edge(STUDENT[count], 2, find_the_id_of_project(current_row.project4))
+    edge = Edge_class.Edge(STUDENT[count], 2, find_the_id_of_project(current_row.project4))
     EDGE.append(edge)
 
-    edge = Edge(STUDENT[count], 1, find_the_id_of_project(current_row.project5))
+    edge = Edge_class.Edge(STUDENT[count], 1, find_the_id_of_project(current_row.project5))
     EDGE.append(edge)
 
     count += 1
