@@ -31,7 +31,7 @@ def find_the_id_of_project(name):
 
 #--------------------------------------- modify df 
 def create_DF():
-    df = pd.read_csv('sample1.xlsx - Sheet 1.csv')
+    df = pd.read_csv('sample1.xlsx - Sheet 2.csv')
     df[["english_writing_skill", "programming_attitude"]] = df[["english_writing_skill", "programming_attitude"]].apply(pd.to_numeric)
     return df
 
@@ -42,6 +42,7 @@ PROJECT = create_Project_array(df)
 
 
 #--------------------------------------- build STUDENT array 
+
 
 def create_Student_array(df):
     count = 0
@@ -129,15 +130,15 @@ def create_Dislike_matrix(df):
         
         current_row = df.iloc[student_id_row]
 
-        if (find_student_id(current_row.friend1) >= 0):
+        if (find_student_id(current_row.dislike1) >= 0):
             dislike_matrix[student_id_row][find_student_id(current_row.dislike1)] = 1
-        if (find_student_id(current_row.friend2) >= 0):
+        if (find_student_id(current_row.dislike2) >= 0):
             dislike_matrix[student_id_row][find_student_id(current_row.dislike2)] = 1
-        if (find_student_id(current_row.friend3) >= 0):
+        if (find_student_id(current_row.dislike3) >= 0):
             dislike_matrix[student_id_row][find_student_id(current_row.dislike3)] = 1
-        if (find_student_id(current_row.friend4) >= 0):
+        if (find_student_id(current_row.dislike4) >= 0):
             dislike_matrix[student_id_row][find_student_id(current_row.dislike4)] = 1
-        if (find_student_id(current_row.friend5) >= 0):
+        if (find_student_id(current_row.dislike5) >= 0):
             dislike_matrix[student_id_row][find_student_id(current_row.dislike5)] = 1
 
         student_id_row += 1
@@ -166,3 +167,6 @@ dislike_matrix = create_Dislike_matrix(df)
 # print (EDGE[0].weight)
 # print ("--------project of student in first EDGE:")
 # print (EDGE[0].project)
+
+# print ("--------dislike matrix")
+# print (dislike_matrix[0][113])

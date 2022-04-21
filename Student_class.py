@@ -10,6 +10,21 @@ class Student:
         self.conflict_resolution_approach = conflict_resolution_approach
         self.interaction = interaction
 
+    def isExtrovert(self):
+        if self.group_dynamic == "An EXTROVERT":
+            return True
+        return False
+
+    def isLeader(self):
+        if self.leadership == "A natural leader":
+            return True
+        return False
+
+    def isManager(self):
+        if self.leadership == "An effective manager":
+            return True
+        return False
+
     def toDict(self):
         dictionary_version = {
             "ID": self.ID,
