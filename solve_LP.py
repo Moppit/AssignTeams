@@ -1,3 +1,4 @@
+from mmap import PROT_EXEC
 from pulp import *
 import parameters
 import helpers
@@ -30,8 +31,8 @@ if parameters.CONSIDER_PROJECT_PREFERENCES:
         prob += num_proj_assigned_per_student >= 0
 
 ### Ensure projects are within min/max team size
-for p in range(len(PROJECTS)):
-    relevant_edges = helpers.getEdgesWithProject(EDGES, p)
+for p in PROJECTS:
+    relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
     team_size = lpSum( [preference_vars[edge] for edge in relevant_edges] )
 
     if parameters.CONSIDER_MAX_TEAM_SIZE:
@@ -48,9 +49,9 @@ if parameters.CONSIDER_TEAMMATE_LIKES:
                 i_project = helpers.getEdgesWithStudentID(EDGES, i)
                 j_project = helpers.getEdgesWithStudentID(EDGES, j)
                 for p in PROJECTS:
-                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, p)
+                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, read_data.find_the_id_of_project(p))
                     if len(fullyfiltered) == 2:
-                        prob += preference_vars[fullyfiltered[0]] + preference_vars[fullyfiltered[1]] == 2
+                        prob += preference_vars[fullyfiltered[0]] - preference_vars[fullyfiltered[1]] == 0
 
 
 ### Ensure students don't get paired with people they dislike
@@ -58,18 +59,12 @@ if parameters.CONSIDER_TEAMMATE_DISLIKES:
     for j in range(len(read_data.dislike_matrix[0])):
         for i in range(len(read_data.dislike_matrix)):
             if read_data.dislike_matrix[i][j] == 1:
-                # print ("printing i and j")
                 print (i,j)
                 i_project = helpers.getEdgesWithStudentID(EDGES, i)
                 j_project = helpers.getEdgesWithStudentID(EDGES, j)
-                # print ("i_project: ", i_project)
-                # print ("j_project: ", j_project)
-                # print ("combine: ", i_project + j_project)
                 for p in PROJECTS:
-                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, p)
-                    print ("result of fullyfiltered: ", fullyfiltered)
+                    fullyfiltered = helpers.getEdgesWithProject(i_project + j_project, read_data.find_the_id_of_project(p))
                     if len(fullyfiltered) == 2:
-                        print ("i, j gets here", i,j, p)
                         prob += preference_vars[fullyfiltered[0]] + preference_vars[fullyfiltered[1]] <= 1
 
 

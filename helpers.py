@@ -50,6 +50,7 @@ def getEdgesWithStudentID(lstToFilter, student_id):
         return []
     # If you get list of string objects
     elif isinstance(lstToFilter[0], str):
+        
         return [val for val in lstToFilter if getEdgeStudentID(val) == student_id]
     # If you get list of Edge objects
     else:
@@ -60,6 +61,9 @@ def getEdgesWithProject(lstToFilter, project):
         return []
     # If you get list of string objects
     elif isinstance(lstToFilter[0], str):
+        # print ("getEdgeProject: ", getEdgeProject(lstToFilter[3]))
+        # print ("project: ", project)
+        # print ("Compare result", getEdgeProject(lstToFilter[3]) == project)
         return [val for val in lstToFilter if getEdgeProject(val) == project]
     # If you get list of Edge objects
     else:
