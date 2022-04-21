@@ -8,6 +8,7 @@ df = read_data.create_DF()
 EDGES = read_data.create_Edge_array(df)
 STUDENTS = read_data.create_Student_array(df)
 PROJECTS = read_data.create_Project_array(df)
+Sponsor_List = [["Student_1", "iSAT"], ["Student_9", "BI Inc., #1"]]
 
 # Creates decision variables - note that the edges from people to projects have to be exactly 1
 preferences = [helpers.getEdgeName(edge) for edge in EDGES]
@@ -69,15 +70,16 @@ if parameters.CONSIDER_TEAMMATE_DISLIKES:
 
 
 ### Meet sponsor requests if the student also wants to be paired with them
-# if parameters.CONSIDER_SPONSOR_REQUESTS:
-#     # sponsor list
-#     for x in Sponsor_List: #[student_name, project_name]
-#         student_id = read_data.find_student_id(x[0])
-#         project_name = read_data.find_the_id_of_project(x[1])
-#         student_edge = helpers.getEdgesWithStudentID(read_data.EDGE, student_id)
-#         for y in student_edge:
-#             if y.weight > 0:
-#                 y.weight == 1 #???
+if parameters.CONSIDER_SPONSOR_REQUESTS:
+    # sponsor list
+    for x in Sponsor_List: #[student_name, project_name]
+        student_id = read_data.find_student_id(x[0])
+        project_id = read_data.find_the_id_of_project(x[1])
+        student_edge = helpers.getEdgesWithStudentID(read_data.EDGE, student_id)
+        for y in student_edge:
+            print ("y is: ", y)
+            if helpers.getEdgeProject(y) == project_id:
+                prob += preference_vars[y] == 1
             
 
 

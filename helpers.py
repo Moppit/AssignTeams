@@ -68,3 +68,10 @@ def getEdgesWithProject(lstToFilter, project):
     # If you get list of Edge objects
     else:
         return [getEdgeName(val) for val in lstToFilter if val.project == project]
+
+def changeEdgeWeight(edge):
+    if isinstance(edge, str):
+        arr = edge.split('_')
+        return int(arr[1])
+    else:
+        return edge.weight
