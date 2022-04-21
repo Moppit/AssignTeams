@@ -90,8 +90,20 @@ if parameters.CONSIDER_GROUP_DYNAMIC:
         prob += extrovert_count >= parameters.NUM_EXTROVERTS
 
 
+if parameters.CONSIDER_LEADERSHIP:
+    for p in PROJECTS:
+        relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
+        # print ("relevant edges: ", relevant_edges)
+        leader_count = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.isLeader()*preference_vars[edge] for edge in relevant_edges] )
+        # print ("leader count: ", leader_count)
+        prob += leader_count >= 1
 
 
+if parameters.CONSIDER_MANAGER:
+    for p in PROJECTS:
+        relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
+        manager_count = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.isManager()*preference_vars[edge] for edge in relevant_edges] )
+        prob += manager_count >= 1
 
 
 

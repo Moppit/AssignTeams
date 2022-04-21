@@ -15,6 +15,16 @@ class Student:
             return True
         return False
 
+    def isLeader(self):
+        if self.leadership == "A natural leader":
+            return True
+        return False
+
+    def isManager(self):
+        if self.leadership == "An effective manager":
+            return True
+        return False
+
     def toDict(self):
         dictionary_version = {
             "ID": self.ID,
