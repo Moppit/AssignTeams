@@ -80,20 +80,13 @@ if parameters.CONSIDER_TEAMMATE_DISLIKES:
 #                 y.weight == 1 #???
             
 
+### group dynamic: each team has at least 1 extrovert (i.e. person that talks)
+if parameters.CONSIDER_GROUP_DYNAMIC:
+    for p in PROJECTS:
+        relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
+        extrovert_count = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.isExtrovert()*preference_vars[edge] for edge in relevant_edges] )
+        prob += extrovert_count >= parameters.NUM_EXTROVERTS
 
-### TODO: add the other attribute-based constraints
-
-#### group dynamic
-# if parameters.CONSIDER_GROUP_DYNAMIC:
-#     for p in read_data.PROJECT:
-#         edges = helpers.getEdgesWithProject(read_data.EDGE, p)
-#         count_of_extrovert = 0
-#         for single_edge in edges:
-#             if single_edge.student.group_dynamic == "An EXTROVERT":
-#                 count_of_extrovert += 1
-#         prob += count_of_extrovert >= 2 # each project gets at least two extroverts
-
-#### 
 
 
 

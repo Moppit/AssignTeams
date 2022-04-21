@@ -19,6 +19,7 @@ CONSIDER_GROUP_DYNAMIC = True
 # ----- Adjustable Values Parameters ----- 
 MIN_TEAM_SIZE = 4
 MAX_TEAM_SIZE = 8   # Can change this to 10 if we want more flexibility
+NUM_EXTROVERTS = 1
 
 # ----- Critical Parameters -- Modify with caution! -----
 
