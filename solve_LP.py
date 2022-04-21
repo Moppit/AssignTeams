@@ -54,7 +54,6 @@ if parameters.CONSIDER_TEAMMATE_LIKES:
                     if len(fullyfiltered) == 2:
                         prob += preference_vars[fullyfiltered[0]] - preference_vars[fullyfiltered[1]] == 0
 
-
 ### Ensure students don't get paired with people they dislike
 if parameters.CONSIDER_TEAMMATE_DISLIKES:
     for j in range(len(read_data.dislike_matrix[0])):
@@ -68,7 +67,6 @@ if parameters.CONSIDER_TEAMMATE_DISLIKES:
                     if len(fullyfiltered) == 2:
                         prob += preference_vars[fullyfiltered[0]] + preference_vars[fullyfiltered[1]] <= 1
 
-
 ### Meet sponsor requests if the student also wants to be paired with them
 if parameters.CONSIDER_SPONSOR_REQUESTS:
     # sponsor list
@@ -81,15 +79,26 @@ if parameters.CONSIDER_SPONSOR_REQUESTS:
             if helpers.getEdgeProject(y) == project_id:
                 prob += preference_vars[y] == 1
             
-
-### group dynamic: each team has at least 1 extrovert (i.e. person that talks)
+### Group dynamic: each team has at least 1 extrovert (i.e. person that talks)
 if parameters.CONSIDER_GROUP_DYNAMIC:
     for p in PROJECTS:
         relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
         extrovert_count = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.isExtrovert()*preference_vars[edge] for edge in relevant_edges] )
         prob += extrovert_count >= parameters.NUM_EXTROVERTS
 
+### English Writing Skills: want to make sure there is some competency for documentation
+if parameters.CONSIDER_ENGLISH_WRITING_SKILL:
+    for p in PROJECTS:
+        relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
+        total_skill = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.english_writing_skill*preference_vars[edge] for edge in relevant_edges] )
+        prob += total_skill >= parameters.TOTAL_ENGLISH_WRITING_SKILL
 
+### Programming Skills: want to make sure there is some competency for technical work
+if parameters.CONSIDER_PROGRAMMING_ATTITUDE:
+    for p in PROJECTS:
+        relevant_edges = helpers.getEdgesWithProject(EDGES, read_data.find_the_id_of_project(p))
+        total_skill = lpSum( [helpers.getEdgeFromName(EDGES, edge).student.programming_attitude*preference_vars[edge] for edge in relevant_edges] )
+        prob += total_skill >= parameters.TOTAL_PROGRAMMING_ATTITUDE
 
 
 
