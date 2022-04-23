@@ -28,8 +28,7 @@ if parameters.CONSIDER_PROJECT_PREFERENCES:
     for s in STUDENTS:
         relevant_edges = helpers.getEdgesWithStudentID(EDGES, s.ID)
         num_proj_assigned_per_student = lpSum([preference_vars[edge] for edge in relevant_edges])
-        prob += num_proj_assigned_per_student <= parameters.PROJECTS_PER_STUDENT
-        prob += num_proj_assigned_per_student >= 0
+        prob += num_proj_assigned_per_student == parameters.PROJECTS_PER_STUDENT
 
 ### Ensure projects are within min/max team size
 for p in PROJECTS:
