@@ -134,5 +134,5 @@ for v in prob.variables():
 if LpStatus[prob.status] == 'Optimal':
     # Display all edges
     for i in range(len(PROJECTS)):
-        print(PROJECTS[i], ':', [edge for edge in helpers.getEdgesWithProject(final_edges, i)])
+        print(PROJECTS[i], ':', [helpers.getEdgeFromName(EDGES, edge).student.name for edge in helpers.getEdgesWithProject(final_edges, i)])
     
